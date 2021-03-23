@@ -24,20 +24,11 @@ class PrefixCommand extends Command {
 		);
 
 		if (
-			args.prefix === null ||
-			this.client.ownerID != message.author.id ||
-			!message.channel
+			this.client.isOwner(message.author.id) ||
+			message.channel
 				.permissionsFor(message.author.id)
 				.has("MANAGE_GUILD")
 		) {
-			const embed = new MessageEmbed()
-				.setFooter("⚠️ This is a joke lol")
-				.setColor("RANDOM")
-				.setDescription(
-					`This server's prefix is \`${oldPrefix}\` or you can mention me.\n\nIf you're a server admin, you can use \`@Troll bot lol#7212 prefix <new prefix>\` to change this server's prefix.`
-				);
-			return message.util.send(embed);
-		} else {
 			if (message.guild.prefix == args.prefix.toLowerCase()) {
 				const embed = new MessageEmbed()
 					.setFooter("⚠️ This is a joke lol")
@@ -70,6 +61,14 @@ class PrefixCommand extends Command {
 					);
 				return message.util.send(embed);
 			}
+		} else {
+			const embed = new MessageEmbed()
+				.setFooter("⚠️ This is a joke lol")
+				.setColor("RANDOM")
+				.setDescription(
+					`This server's prefix is \`${oldPrefix}\` or you can mention me.\n\nIf you're a server admin, you can use \`@Troll bot lol#7212 prefix <new prefix>\` to change this server's prefix.`
+				);
+			return message.util.send(embed);
 		}
 	}
 }

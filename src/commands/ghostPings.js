@@ -16,21 +16,11 @@ class GhostPingCommand extends Command {
 		);
 
 		if (
-			!this.client.isOwner(message.author.id) ||
-			!message.channel
+			this.client.isOwner(message.author.id) ||
+			message.channel
 				.permissionsFor(message.author.id)
 				.has("MANAGE_GUILD")
 		) {
-			const embed = new MessageEmbed()
-				.setFooter("⚠️ This is a joke lol")
-				.setColor("RANDOM")
-				.setDescription(
-					`This server currently has **Ghost Pings** \`${
-						oldSetting ? "Enabled" : "Disabled"
-					}\`.`
-				);
-			return message.util.send(embed);
-		} else {
 			// console.log(oldSetting);
 			await this.client.settings.set(
 				message.guild.id,
@@ -47,6 +37,16 @@ class GhostPingCommand extends Command {
 					}\`. Random members will ${
 						!oldSetting ? "now" : "no longer"
 					} be **Ghost Pinged** every 5 minutes.`
+				);
+			return message.util.send(embed);
+		} else {
+			const embed = new MessageEmbed()
+				.setFooter("⚠️ This is a joke lol")
+				.setColor("RANDOM")
+				.setDescription(
+					`This server currently has **Ghost Pings** \`${
+						oldSetting ? "Enabled" : "Disabled"
+					}\`.`
 				);
 			return message.util.send(embed);
 		}
