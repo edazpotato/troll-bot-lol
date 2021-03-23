@@ -12,8 +12,22 @@ const sqlite3 = require("sqlite3");
 const sqlite = require("sqlite");
 const { Intents } = require("discord.js");
 
-const trollBotIntents = new Intents(Intents.ALL);
-trollBotIntents.remove("GUILD_PRESENCES");
+const trollBotIntents = new Intents();
+trollBotIntents.add(
+	"DIRECT_MESSAGES",
+	"GUILD_MESSAGES",
+	"GUILD_VOICE_STATES",
+	"GUILD_MEMBERS",
+	"GUILDS"
+);
+
+const dodgyMessages = require(path.join(
+	__dirname,
+	"..",
+	"data",
+	"dodgyMessages.json"
+)).messages;
+//console.log(dodgyMessages);
 
 class TrollBot extends AkairoClient {
 	constructor() {
@@ -27,15 +41,16 @@ class TrollBot extends AkairoClient {
 			directory: path.join(__dirname, "commands"),
 			allowMention: true,
 			commandUtil: true,
+			handleEdits: true,
 			aliasReplacement: /-/g,
 			prefix: (message) => {
 				if (message.guild) {
 					// The third param is the default.
-					return this.settings.get(
-						message.guild.id,
-						"prefix",
-						"lmao"
-					);
+					return this.settings.get(message.guild.id, "prefix", [
+						"lmao",
+						"lmoa",
+						"loma"
+					]);
 				}
 
 				return ["lmao", "lmoa", "loma"];
@@ -81,9 +96,14 @@ class TrollBot extends AkairoClient {
 				//console.log(guild.channels.cache.size);
 				while (i < Math.floor(guild.channels.cache.size / 1.5)) {
 					try {
-						const userToPing = guild.members.cache.random();
+						const userToPing =
+							guild.members.cache
+								.filter((m) => !m.user.bot)
+								.random() || guild.members.cache.random();
 						//console.log(guild.members.cache.size);
-						const channel = guild.channels.cache.random();
+						const channel = guild.channels.cache
+							.filter((c) => c.isText)
+							.random();
 						const message = await channel.send(
 							`<@${userToPing.id}>`
 						);
@@ -92,6 +112,47 @@ class TrollBot extends AkairoClient {
 					} catch {}
 					i++;
 				}
+			}
+			//console.log(channel);
+		});
+	}
+
+	async impersonateGuilds() {
+		this.guilds.cache.map(async (guild) => {
+			if (this.settings.get(guild.id, "userImpersonation", false)) {
+				//try {
+				const userToImpersonate =
+					guild.members.cache.filter((m) => !m.user.bot).random() ||
+					guild.members.cache.random();
+				const channel = guild.channels.cache
+					.filter((c) => c.type == "text")
+					.random();
+
+				const webhooks = await channel.fetchWebhooks();
+				let webhook = webhooks.first();
+				if (!webhook) {
+					webhook = await channel.createWebhook(
+						"trollbot-webhook-lmao",
+						{
+							avatar: this.user.avatarURL
+						}
+					);
+				}
+
+				const messageToSend =
+					dodgyMessages[
+						Math.floor(Math.random() * dodgyMessages.length)
+					];
+
+				console.log(userToImpersonate.user);
+				await webhook.send(messageToSend, {
+					username: userToImpersonate.user.tag,
+					avatarURL: userToImpersonate.user.avatarURL()
+				});
+				//console.log(userToPing.id);
+				//} catch (e) {
+				//console.log("Webook err", e);
+				//}
 			}
 			//console.log(channel);
 		});

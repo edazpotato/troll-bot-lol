@@ -1,10 +1,10 @@
 const { Command } = require("discord-akairo");
 const { MessageEmbed } = require("discord.js");
 
-class WhyCommand extends Command {
+class OSSCommand extends Command {
 	constructor() {
-		super("why", {
-			aliases: ["why"]
+		super("oss", {
+			aliases: ["oss", "source", "src", "code", "github", "git"]
 		});
 	}
 
@@ -13,10 +13,11 @@ class WhyCommand extends Command {
 			.setFooter("⚠️ This is a joke lol")
 			.setColor("RANDOM")
 			.setDescription(
-				"I was bored and saw [this](https://www.reddit.com/r/discordapp/comments/ma44h4/what_type_of_bot_are_you_looking_for/grqwyot?utm_source=share&utm_medium=web2x&context=3) on reddit."
+				"Here's the code lol: [github.com/edazpotato/troll-bot-lol](https://github.com/edazpotato/troll-bot-lol)."
 			);
+
 		await message.channel.send(embed);
 	}
 }
 
-module.exports = WhyCommand;
+module.exports = OSSCommand;

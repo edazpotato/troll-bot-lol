@@ -1,17 +1,27 @@
 const { Command } = require("discord-akairo");
 const { MessageEmbed } = require("discord.js");
 
-class GhostPingCommand extends Command {
+class UserImpersonationCommand extends Command {
 	constructor() {
-		super("ghost-pings", {
-			aliases: ["ghost-pings", "ghost-ping", "pings", "ghost"]
+		super("user-impersonation", {
+			aliases: [
+				"users",
+				"user",
+				"impersonation",
+				"impersonate",
+				"impersonate-user",
+				"user-impersonation",
+				"imersonate",
+				"imersonate-user",
+				"user-imersonation"
+			]
 		});
 	}
 
 	async exec(message, args) {
 		const oldSetting = this.client.settings.get(
 			message.guild.id,
-			"ghostPings",
+			"userImpersonation",
 			false
 		);
 
@@ -25,7 +35,7 @@ class GhostPingCommand extends Command {
 				.setFooter("⚠️ This is a joke lol")
 				.setColor("RANDOM")
 				.setDescription(
-					`This server currently has **Ghost Pings** \`${
+					`This server currently has **User Impersonation** \`${
 						oldSetting ? "Enabled" : "Disabled"
 					}\`.`
 				);
@@ -34,7 +44,7 @@ class GhostPingCommand extends Command {
 			// console.log(oldSetting);
 			await this.client.settings.set(
 				message.guild.id,
-				"ghostPings",
+				"userImpersonation",
 				!oldSetting
 			);
 
@@ -42,15 +52,15 @@ class GhostPingCommand extends Command {
 				.setFooter("⚠️ This is a joke lol")
 				.setColor("RANDOM")
 				.setDescription(
-					`This server's setting for **Ghost Pings** has been changed to \`${
+					`This server's setting for **User Impersonation** has been changed to \`${
 						!oldSetting ? "Enabled" : "Disabled"
-					}\`. Random members will ${
+					}\`. A random member will ${
 						!oldSetting ? "now" : "no longer"
-					} be **Ghost Pinged** every 5 minutes.`
+					} be **Impersonated** every 3 minutes.`
 				);
 			return message.util.send(embed);
 		}
 	}
 }
 
-module.exports = GhostPingCommand;
+module.exports = UserImpersonationCommand;
