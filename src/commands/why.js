@@ -4,7 +4,14 @@ const { MessageEmbed } = require("discord.js");
 class WhyCommand extends Command {
 	constructor() {
 		super("why", {
-			aliases: ["why"]
+			aliases: ["why"],
+			description: {
+				usage: "",
+				about: "Why would you do this?!"
+			},
+			category: "core",
+			channel: "guild",
+			clientPermissions: ["SEND_MESSAGES"]
 		});
 	}
 

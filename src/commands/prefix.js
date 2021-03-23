@@ -6,13 +6,18 @@ class PrefixCommand extends Command {
 	constructor() {
 		super("prefix", {
 			aliases: ["prefix"],
-			category: "stuff",
+			description: {
+				usage: "[new prefix]",
+				about: "Displays the current server prefix, or sets a new one."
+			},
+			category: "core",
 			args: [
 				{
 					id: "prefix"
 				}
 			],
-			channel: "guild"
+			channel: "guild",
+			clientPermissions: ["SEND_MESSAGES"]
 		});
 	}
 

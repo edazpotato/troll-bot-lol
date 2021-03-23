@@ -4,7 +4,13 @@ const { MessageEmbed } = require("discord.js");
 class OSSCommand extends Command {
 	constructor() {
 		super("oss", {
-			aliases: ["oss", "source", "src", "code", "github", "git"]
+			aliases: ["oss", "source", "src", "code", "github", "git"],
+			description: {
+				usage: "",
+				about: "Just steal my code why don't you?"
+			},
+			category: "core",
+			clientPermissions: ["SEND_MESSAGES"]
 		});
 	}
 

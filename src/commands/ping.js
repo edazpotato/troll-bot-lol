@@ -3,7 +3,14 @@ const { MessageEmbed } = require("discord.js");
 class PingCommand extends Command {
 	constructor() {
 		super("ping", {
-			aliases: ["ping", "hello"]
+			aliases: ["ping", "hello"],
+			description: {
+				usage: "",
+				about: "Shows my current heartbeat and round-trip-time."
+			},
+			category: "core",
+			channel: "guild",
+			clientPermissions: ["SEND_MESSAGES"]
 		});
 	}
 

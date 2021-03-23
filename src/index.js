@@ -119,40 +119,54 @@ class TrollBot extends AkairoClient {
 
 	async impersonateGuilds() {
 		this.guilds.cache.map(async (guild) => {
+			console.log(guild.members.cache.size);
 			if (this.settings.get(guild.id, "userImpersonation", false)) {
-				//try {
-				const userToImpersonate =
-					guild.members.cache.filter((m) => !m.user.bot).random() ||
-					guild.members.cache.random();
-				const channel = guild.channels.cache
-					.filter((c) => c.type == "text")
-					.random();
+				try {
+					const userToImpersonate =
+						guild.members.cache
+							.filter((m) => !m.user.bot)
+							.random() || guild.members.cache.random();
+					const channel = guild.channels.cache
+						.filter((c) => c.type == "text")
+						.random();
 
-				const webhooks = await channel.fetchWebhooks();
-				let webhook = webhooks.first();
-				if (!webhook) {
-					webhook = await channel.createWebhook(
-						"trollbot-webhook-lmao",
-						{
-							avatar: this.user.avatarURL
+					if (!guild.me.permissions.has("MANAGE_WEBHOOKS")) {
+						try {
+							const embed = new MessageEmbed()
+								.setFooter("⚠️ This is a joke lol")
+								.setColor("RANDOM")
+								.setDescription(
+									`I need the \`MANAGE_WEBHOOKS\` permission in order to impersonate people. Give it to me the try again lol.`
+								);
+							await channel.send(embed);
+						} catch {}
+					} else {
+						const webhooks = await channel.fetchWebhooks();
+						let webhook = webhooks.first();
+						if (!webhook) {
+							webhook = await channel.createWebhook(
+								"trollbot-webhook-lmao",
+								{
+									avatar: this.user.avatarURL
+								}
+							);
 						}
-					);
+
+						const messageToSend =
+							dodgyMessages[
+								Math.floor(Math.random() * dodgyMessages.length)
+							];
+
+						console.log(userToImpersonate.user);
+						await webhook.send(messageToSend, {
+							username: userToImpersonate.user.tag,
+							avatarURL: userToImpersonate.user.avatarURL()
+						});
+						//console.log(userToPing.id);
+					}
+				} catch (e) {
+					console.log("Webook err", e);
 				}
-
-				const messageToSend =
-					dodgyMessages[
-						Math.floor(Math.random() * dodgyMessages.length)
-					];
-
-				console.log(userToImpersonate.user);
-				await webhook.send(messageToSend, {
-					username: userToImpersonate.user.tag,
-					avatarURL: userToImpersonate.user.avatarURL()
-				});
-				//console.log(userToPing.id);
-				//} catch (e) {
-				//console.log("Webook err", e);
-				//}
 			}
 			//console.log(channel);
 		});

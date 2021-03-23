@@ -4,7 +4,13 @@ const { MessageEmbed } = require("discord.js");
 class InviteCommand extends Command {
 	constructor() {
 		super("invite", {
-			aliases: ["invite", "add", "inv"]
+			aliases: ["invite", "add", "inv"],
+			description: {
+				usage: "",
+				about: "SPREAD THE PLUAGE!!!"
+			},
+			category: "core",
+			clientPermissions: ["SEND_MESSAGES"]
 		});
 	}
 

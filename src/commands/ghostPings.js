@@ -4,7 +4,14 @@ const { MessageEmbed } = require("discord.js");
 class GhostPingCommand extends Command {
 	constructor() {
 		super("ghost-pings", {
-			aliases: ["ghost-pings", "ghost-ping", "pings", "ghost"]
+			aliases: ["ghost-pings", "ghost-ping", "pings", "ghost"],
+			description: {
+				usage: "",
+				about: "Toggles ghost pings for the current server."
+			},
+			category: "troll",
+			channel: "guild",
+			clientPermissions: ["SEND_MESSAGES"]
 		});
 	}
 
