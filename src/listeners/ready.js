@@ -10,6 +10,11 @@ class ReadyListener extends Listener {
 	impersonateGuilds;
 	exec() {
 		console.log("I'm ready!");
+
+		this.client.user.setActivity("some nerds suffer lol", {
+			type: "WATCHING"
+		});
+
 		this.client.pingLoop = setInterval(() => {
 			this.client.ghostPingGuilds();
 		}, 60 * 5 * 1000 /* every 5 minutes */);
