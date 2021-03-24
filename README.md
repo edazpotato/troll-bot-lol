@@ -3,6 +3,7 @@
 It's a dsicord bot that troll people by:
 
 -   Ghost pinging them
+-   Sending _odd_ messages, that look like they were sent by a real member using webhooks
 
 Invite link [https://discord.com/api/oauth2/authorize?client_id=654104074530062346&permissions=970456176&scope=bot](https://discord.com/api/oauth2/authorize?client_id=654104074530062346&permissions=970456176&scope=bot)
 

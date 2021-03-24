@@ -21,7 +21,7 @@ class ReadyListener extends Listener {
 
 		this.client.impersonationLoop = setInterval(() => {
 			this.client.ghostPingGuilds();
-		}, 60 * 3 * 1000 /* every minute */);
+		}, 60 * 3 * 1000 /* every 3 minutes */);
 
 		// Do it once when the bot starts
 		this.client.impersonateGuilds();
