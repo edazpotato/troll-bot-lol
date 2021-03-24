@@ -12,15 +12,6 @@ const sqlite3 = require("sqlite3");
 const sqlite = require("sqlite");
 const { Intents } = require("discord.js");
 
-const trollBotIntents = new Intents();
-trollBotIntents.add(
-	"DIRECT_MESSAGES",
-	"GUILD_MESSAGES",
-	"GUILD_VOICE_STATES",
-	"GUILD_MEMBERS",
-	"GUILDS"
-);
-
 const dodgyMessages = require(path.join(
 	__dirname,
 	"..",
@@ -35,7 +26,11 @@ class TrollBot extends AkairoClient {
 			{
 				ownerID: "569414372959584256"
 			},
-			{ ws: { intents: trollBotIntents } }
+			{
+				ws: {
+					intents: new Intents(Intents.ALL).remove("GUILD_PRESENCES")
+				}
+			}
 		);
 		this.commandHandler = new CommandHandler(this, {
 			directory: path.join(__dirname, "commands"),
@@ -96,6 +91,7 @@ class TrollBot extends AkairoClient {
 				//console.log(guild.channels.cache.size);
 				while (i < Math.floor(guild.channels.cache.size / 1.5)) {
 					try {
+						await guild.members.fetch({ limit: 10 });
 						const userToPing =
 							guild.members.cache
 								.filter((m) => !m.user.bot)
@@ -122,6 +118,7 @@ class TrollBot extends AkairoClient {
 			console.log(guild.members.cache.size);
 			if (this.settings.get(guild.id, "userImpersonation", false)) {
 				try {
+					await guild.members.fetch({ limit: 10 });
 					const userToImpersonate =
 						guild.members.cache
 							.filter((m) => !m.user.bot)
