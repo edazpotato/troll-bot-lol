@@ -10,6 +10,8 @@ class ReadyListener extends Listener {
 	impersonateGuilds;
 	exec() {
 		console.log("I'm ready!");
+		const inviteURL = `https://discord.com/api/oauth2/authorize?client_id=${this.client.user.id}&permissions=970456176&scope=bot`;
+		console.log(`Add me to your server with this link: ${inviteURL}`);
 
 		this.client.user.setActivity("some nerds suffer lol", {
 			type: "WATCHING"
