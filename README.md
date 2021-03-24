@@ -28,3 +28,7 @@ TOKEN=<YOUR BOT TOKEN>
 -   Moving people around in VCs
 -   Pinging @everyone
 -   Customizable cooldowns
+
+# Disclosure of lack of liabitly
+
+I won't accept any liabitly if this bot gets you in trouble lol. If you add this to a discord server then get banned, that's all on you lmao.
