@@ -1,43 +1,10 @@
-"use strict";
 const { Command } = require("discord-akairo");
 const { MessageEmbed } = require("discord.js");
+
 function capitilize(name) {
 	return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 }
-const readblePermissions = {
-	// If possible, use the translations from the Discord client here
-	CREATE_INSTANT_INVITE: "Create Invite",
-	KICK_MEMBERS: "Kick Members",
-	BAN_MEMBERS: "Ban Members",
-	ADMINISTRATOR: "Administrator",
-	MANAGE_CHANNELS: "Manage Channels",
-	MANAGE_GUILD: "Manage Server",
-	ADD_REACTIONS: "Add Reactions",
-	VIEW_AUDIT_LOG: "View Audit Log",
-	PRIORITY_SPEAKER: "Priority Speaker",
-	STREAM: "Video",
-	VIEW_CHANNEL: "Read Messages",
-	SEND_MESSAGES: "Send Messages",
-	SEND_TTS_MESSAGES: "Send TTS Messages",
-	MANAGE_MESSAGES: "Manage Messages",
-	EMBED_LINKS: "Embed Links",
-	ATTACH_FILES: "Attach Files",
-	READ_MESSAGE_HISTORY: "Read Message History",
-	MENTION_EVERYONE: "Mention @\u200beveryone, @\u200bhere and All Roles",
-	USE_EXTERNAL_EMOJIS: "Use External Emojis",
-	VIEW_GUILD_INSIGHTS: "View Server Insights",
-	CONNECT: "Connect",
-	SPEAK: "Speak",
-	MUTE_MEMBERS: "Mute Members (voice)",
-	DEAFEN_MEMBERS: "Deafen Members",
-	MOVE_MEMBERS: "Move Members",
-	USE_VAD: "Use Voice Activity",
-	CHANGE_NICKNAME: "Change Nickname",
-	MANAGE_NICKNAMES: "Manage Nicknames",
-	MANAGE_ROLES: "Manage Roles",
-	MANAGE_WEBHOOKS: "Manage Webhooks",
-	MANAGE_EMOJIS: "Manage Emojis"
-};
+
 class HelpCommand extends Command {
 	constructor() {
 		super("help", {
@@ -51,6 +18,7 @@ class HelpCommand extends Command {
 			clientPermissions: ["SEND_MESSAGES"],
 			args: [{ id: "commandID", type: "commandAlias", default: null }]
 		});
+		this.readblePermissions = require("../utils/readble-permissions.json");
 	}
 	async sendHelp(message) {
 		const usefulLinks = [
@@ -141,7 +109,7 @@ class HelpCommand extends Command {
 			embed.addField(
 				"User permissions",
 				command.userPermissions
-					.map((permission) => readblePermissions[permission])
+					.map((permission) => this.readblePermissions[permission])
 					.join(", ")
 			);
 		}
@@ -149,7 +117,7 @@ class HelpCommand extends Command {
 			embed.addField(
 				"Bot permissions",
 				command.clientPermissions
-					.map((permission) => readblePermissions[permission])
+					.map((permission) => this.readblePermissions[permission])
 					.join(", ")
 			);
 		}

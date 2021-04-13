@@ -6,7 +6,6 @@ class UserImpersonationCommand extends Command {
 		super("user-impersonation", {
 			aliases: [
 				"users",
-				"user",
 				"impersonation",
 				"impersonate",
 				"impersonate-user",

@@ -156,7 +156,7 @@ class TrollBot extends AkairoClient {
 
 						console.log(userToImpersonate.user);
 						await webhook.send(messageToSend, {
-							username: userToImpersonate.user.tag,
+							username: userToImpersonate.displayName, // Nickname if they have one, otherwise their normal name
 							avatarURL: userToImpersonate.user.avatarURL()
 						});
 						//console.log(userToPing.id);
