@@ -5,7 +5,7 @@
 	"main": "src/index.js",
 	"scripts": {
 		"start": "node .",
-		"prod": "pm2 src/index.js \"Troll-bot\""
+		"prod": "pm2 start src/index.js \"Troll-bot\""
 	},
 	"author": "Edazpotato (https://github.com/edazpotato)",
 	"license": "MIT",
