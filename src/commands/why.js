@@ -1,6 +1,7 @@
 const { Command } = require("discord-akairo");
 const { MessageEmbed } = require("discord.js");
 
+
 class WhyCommand extends Command {
 	constructor() {
 		super("why", {

@@ -1,8 +1,9 @@
 require("dotenv").config();
 const path = require("path");
+const io = require("@pm2/io");
 
 const {
-	AkairoClient,
+	ShardedAkairoClient,
 	CommandHandler,
 	ListenerHandler,
 	InhibitorHandler,
@@ -20,7 +21,7 @@ const dodgyMessages = require(path.join(
 )).messages;
 //console.log(dodgyMessages);
 
-class TrollBot extends AkairoClient {
+class TrollBot extends ShardedAkairoClient {
 	constructor() {
 		super(
 			{
@@ -32,6 +33,15 @@ class TrollBot extends AkairoClient {
 				}
 			}
 		);
+
+		this.metrics.guilds = io.metric({
+			name: "Guilds"
+		});
+
+		this.metrics.members = io.metric({
+			name: "Members"
+		});
+
 		this.commandHandler = new CommandHandler(this, {
 			directory: path.join(__dirname, "commands"),
 			allowMention: true,

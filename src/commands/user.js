@@ -3,7 +3,7 @@ const { MessageEmbed, GuildMember } = require("discord.js");
 
 class UserInfoCommand extends Command {
 	constructor() {
-		super("user", {
+		/*super("user", {
 			aliases: [
 				"u",
 				"user",
@@ -32,7 +32,7 @@ class UserInfoCommand extends Command {
 			],
 
 			clientPermissions: ["SEND_MESSAGES"]
-		});
+		});*/
 		this.readblePermissions = require("../utils/readble-permissions.json");
 	}
 
@@ -57,11 +57,11 @@ class UserInfoCommand extends Command {
 			permissionsMatch
 				? embed.addField(
 						"Permissions",
-						
-							person.permissions
-								.toArray()
-								.map((perm) => this.readblePermissions[perm])
-								.join("**, **")
+
+						person.permissions
+							.toArray()
+							.map((perm) => this.readblePermissions[perm])
+							.join("**, **")
 				  )
 				: embed
 						.addField(

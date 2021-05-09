@@ -1,18 +1,20 @@
 {
-  "name": "troll-bot",
-  "version": "1.0.0",
-  "description": "A discord bot to troll people lol",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node ."
-  },
-  "author": "Edazpotato (https://github.com/edazpotato)",
-  "license": "MIT",
-  "dependencies": {
-    "discord-akairo": "^8.1.0",
-    "discord.js": "^12.5.1",
-    "dotenv": "^8.2.0",
-    "sqlite": "^4.0.19",
-    "sqlite3": "^5.0.2"
-  }
+	"name": "troll-bot",
+	"version": "1.0.0",
+	"description": "A discord bot to troll people lol",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "node .",
+		"prod": "pm2 src/index.js \"Troll-bot\""
+	},
+	"author": "Edazpotato (https://github.com/edazpotato)",
+	"license": "MIT",
+	"dependencies": {
+		"@pm2/io": "^5.0.0",
+		"discord-akairo": "^8.1.0",
+		"discord.js": "^12.5.1",
+		"dotenv": "^8.2.0",
+		"sqlite": "^4.0.19",
+		"sqlite3": "^5.0.2"
+	}
 }
